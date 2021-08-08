@@ -14,9 +14,14 @@ class MyAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-              Text("Quiz",
+              Text("Test App",
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.logout))
+              IconButton(
+                  onPressed: () {
+                    //logout
+                    Navigator.of(context).pushReplacementNamed('login');
+                  },
+                  icon: Icon(Icons.logout))
             ],
           ),
           Divider(),

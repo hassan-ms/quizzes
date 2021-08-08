@@ -1,23 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:quiz/models/question.dart';
+import 'package:quiz/models/quiz.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Quizes with ChangeNotifier {
-  List<Question> _questions = [
-    Question(
-        questiontxt: 'what is the capital of Egypt ?',
-        choices: ['tokyo', 'cairo', 'alexandria'],
-        imgUrl:
-            "https://www.surveylegend.com/wordpress/wp-content/uploads/2020/12/best-open-ended-questions.png",
-        answer: 1),
-    Question(
-        questiontxt: 'how many continents in the world ?',
-        choices: ['5', '6', '7'],
-        answer: 2),
-    Question(
-        questiontxt: 'which of this is the largest continent ?',
-        choices: ['Asia', 'Africa', 'North America'],
-        answer: 0),
-  ];
+  int userId = -1;
+  void setUserId(userId) {
+    this.userId = userId;
+    notifyListeners();
+  }
+
+  static const url = "https://hostforexaa.glitch.me";
+  static const List<String> choices = ['A', 'B', 'C', 'D'];
+  List<Question> _questions = [];
 
   List<Question> get questions {
     return _questions;
@@ -27,16 +23,73 @@ class Quizes with ChangeNotifier {
     return _questions[questionIndex];
   }
 
-  int _quizDegree = 0;
-  int get quizResult {
-    return _quizDegree;
+  int _quizId = -1;
+
+  get quizId {
+    return _quizId;
   }
 
-  void increaseDegree() {
-    _quizDegree++;
+  List<Quiz> _quizes = [];
+  Future<void> fetchQuizes() async {
+    try {
+      final res = await http.get(
+        Uri.parse('$url/getUserTests/$userId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (res.body.isEmpty) {
+        return;
+      }
+      final List<Quiz> quizes = [];
+      final resBody = json.decode(res.body);
+      resBody.forEach((element) {
+        quizes.add(Quiz(id: element['id'], name: element['name']));
+      });
+      _quizes = quizes;
+    } catch (e) {
+      print('e5' + e.toString());
+    }
+    notifyListeners();
   }
 
-  double calcPrecentage() {
-    return (_quizDegree / questions.length) * 100;
+  List<Quiz> get quizes {
+    return _quizes;
+  }
+
+  Future<int> fetchQuestions(quizId) async {
+    _quizId = quizId;
+    try {
+      final res = await http.get(
+        Uri.parse('$url/getQuestions/$quizId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (res.body.isEmpty) {
+        return 0;
+      }
+      final resBody = json.decode(res.body);
+      final List<Question> resultQuestions = [];
+
+      resBody.forEach((element) {
+        resultQuestions.add(Question(
+            id: element['id'],
+            questiontxt: element['question'],
+            choices: element['D'].isEmpty
+                ? [element['A'], element['B'], element['C']]
+                : [element['A'], element['B'], element['C'], element['D']],
+            answer: choices.indexOf(element['Answer'])));
+      });
+      _questions = resultQuestions;
+    } catch (e) {
+      print('error2' + e.toString());
+    }
+    notifyListeners();
+    return _questions.length;
   }
 }
+// getAllUserResults/:id
+// getUserResult/:userID/:testID
