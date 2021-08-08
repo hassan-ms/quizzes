@@ -5,6 +5,7 @@ import 'package:quiz/provider/answermanager.dart';
 import 'package:quiz/provider/loginManager.dart';
 import 'package:quiz/provider/quizmanager.dart';
 import 'package:quiz/provider/resultsProvider.dart';
+import 'package:quiz/provider/screeninfo.dart';
 import 'package:quiz/screens/loginScreen.dart';
 import 'package:quiz/screens/questionScreen.dart';
 import 'package:quiz/screens/quizResultScreen.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(
           value: LoginManager(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Information(),
         ),
         ChangeNotifierProxyProvider<LoginManager, Quizes>(
           create: (context) => Quizes(),

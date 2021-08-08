@@ -9,7 +9,7 @@ class ListTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       child: Text(
         title,
         style: kTitleTextStyle.copyWith(

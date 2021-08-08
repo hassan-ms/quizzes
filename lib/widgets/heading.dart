@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quiz/provider/screeninfo.dart';
 import '../constants.dart';
 
 class Heading extends StatelessWidget {
@@ -13,7 +15,7 @@ class Heading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.37,
+      height: size.height * 0.39,
       child: Column(
         children: [
           Container(
@@ -34,17 +36,18 @@ class Heading extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: size.height * 0.01,
+            height: size.height * 0.03,
           ),
           CachedNetworkImage(
-            imageUrl: '',
+            imageUrl: Provider.of<Information>(context, listen: false).logo,
             height: size.height * 0.2,
+            maxWidthDiskCache: (size.width * 0.5).toInt(),
             placeholder: (context, url) {
               return CircularProgressIndicator();
             },
             errorWidget: (context, url, error) {
               return Image.asset(
-                'assets/images/MyLogo.png',
+                'assets/images/asfalt-light.png',
                 height: size.height * 0.2,
               );
             },
