@@ -27,7 +27,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
     final size = MediaQuery.of(context).size;
     Question _question = Provider.of<Quizes>(context, listen: true)
         .getCurrentQuesstion(_currentQuestionIndex);
-    print(_question.questiontxt);
     return SafeArea(
       child: Scaffold(
         body: Column(

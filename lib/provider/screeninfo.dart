@@ -18,16 +18,15 @@ class Information with ChangeNotifier {
         Uri.parse('$url/appInfo/$appId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          "Accept": "application/json",
+          "Access-Control_Allow_Origin": "*"
         },
       );
 
       final resBody = json.decode(res.body);
       logo = resBody[0]['logo'];
       phone = resBody[0]['phone'];
-      print(111);
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
     notifyListeners();
   }
 }

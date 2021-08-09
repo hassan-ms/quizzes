@@ -42,7 +42,6 @@ class ResultsProvider with ChangeNotifier {
     this.userId = userId;
     this.questionsLength = questionsLength;
 
-    print(userId);
     _quizDegree = 0;
     notifyListeners();
   }
@@ -67,10 +66,8 @@ class ResultsProvider with ChangeNotifier {
             {'test_id': element['test_id'], 'result': element['test_result']});
       });
       _results = results;
-      print(_results);
     } catch (e) {
       _results = [];
-      print('error' + e.toString());
     }
     notifyListeners();
   }
@@ -104,7 +101,6 @@ class ResultsProvider with ChangeNotifier {
   void checkIfResultExists() async {
     try {
       final res = _results.where((element) => element['test_id'] == testId);
-      print('result' + res.toString());
 
       if (res.length == 0) {
         await uploadResult();
@@ -113,9 +109,7 @@ class ResultsProvider with ChangeNotifier {
       }
       _results.singleWhere(
           (element) => element['test_id'] == testId)['result'] = _result;
-    } catch (e) {
-      print('ee' + e.toString());
-    }
+    } catch (e) {}
     notifyListeners();
   }
 }

@@ -21,7 +21,6 @@ class LoginManager with ChangeNotifier {
       await prefs.setString('password', password);
       _userId = json.decode(res.body)['id'];
     } catch (e) {
-      print('error3' + e.toString());
       return -5;
     }
     notifyListeners();

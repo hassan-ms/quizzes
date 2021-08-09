@@ -48,9 +48,7 @@ class Quizes with ChangeNotifier {
         quizes.add(Quiz(id: element['id'], name: element['name']));
       });
       _quizes = quizes;
-    } catch (e) {
-      print('e5' + e.toString());
-    }
+    } catch (e) {}
     notifyListeners();
   }
 
@@ -77,6 +75,7 @@ class Quizes with ChangeNotifier {
       resBody.forEach((element) {
         resultQuestions.add(Question(
             id: element['id'],
+            imgUrl: element['image'],
             questiontxt: element['question'],
             choices: element['D'].isEmpty
                 ? [element['A'], element['B'], element['C']]
@@ -84,9 +83,7 @@ class Quizes with ChangeNotifier {
             answer: choices.indexOf(element['Answer'])));
       });
       _questions = resultQuestions;
-    } catch (e) {
-      print('error2' + e.toString());
-    }
+    } catch (e) {}
     notifyListeners();
     return _questions.length;
   }
