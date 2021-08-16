@@ -26,7 +26,9 @@ class Information with ChangeNotifier {
       final resBody = json.decode(res.body);
       logo = resBody[0]['logo'];
       phone = resBody[0]['phone'];
-    } catch (e) {}
+    } catch (e) {
+      print(e.toString());
+    }
     notifyListeners();
   }
 }
