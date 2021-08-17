@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class ResultsProvider with ChangeNotifier {
-  static const url = "https://hostforexaa.glitch.me";
+  static const url = "";
   List<Map<String, dynamic>> _results = [];
   List<Map<String, dynamic>> get results {
     return _results;

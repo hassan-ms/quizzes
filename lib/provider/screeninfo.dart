@@ -10,7 +10,7 @@ class Information with ChangeNotifier {
     return [logo, phone];
   }
 
-  static const url = "https://hostforexaa.glitch.me";
+  static const url = "";
   static const appId = 1;
   Future<void> fetchInfo() async {
     try {

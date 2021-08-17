@@ -11,7 +11,7 @@ class Quizes with ChangeNotifier {
     notifyListeners();
   }
 
-  static const url = "https://hostforexaa.glitch.me";
+  static const url = "";
   static const List<String> choices = ['A', 'B', 'C', 'D'];
   List<Question> _questions = [];
 

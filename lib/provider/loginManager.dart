@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginManager with ChangeNotifier {
-  static const url = "https://hostforexaa.glitch.me";
+  static const url = "";
   int _userId = -1;
   Future login(username, password) async {
     try {
